@@ -12,10 +12,10 @@ namespace The_Maze_Game
     {
         public void RunMainMenu()
         {
-           //test shortcut. Delete
-           GameLoop test = new GameLoop();
-           // test.LevelThree();
-            
+            // test shortcut. Delete
+            GameLoop test = new GameLoop();
+            test.LevelFive();
+
             // run open page / logo?
             MainMenu();
 
@@ -57,12 +57,12 @@ namespace The_Maze_Game
 
         private void LevelSelect()
         {
-            Console.Clear();
+            Console.SetCursorPosition(0, 0);;
 
 
             string pageTitle = "Level Menu.";
             string prompt = "Use The Up And Down Arrow Keys To Make A Selection. Then Press Enter.";
-            string[] options = { "Main Menu", "Level One", "Level Two","Level Three"};
+            string[] options = { "Main Menu", "Level One", "Level Two","Level Three","Level Four"};
 
             MenuBuilder levelMenu = new MenuBuilder(pageTitle ,prompt, options);
             int MenuSelection = levelMenu.MenuRun();
@@ -83,13 +83,17 @@ namespace The_Maze_Game
                     GameLoop LvThree = new GameLoop();
                     LvThree.LevelThree();
                     break;
+                case 4:
+                    GameLoop LvFour = new GameLoop();
+                    LvFour.LevelFour();
+                    break;
             }
         }
     
         private void GameInfo()
     {
            
-        Console.Clear();
+        Console.SetCursorPosition(0, 0);;
         Console.WriteLine("Game Info.");
         Console.WriteLine("");
         Console.WriteLine("Press Enter To Return To MainMenu.");
@@ -164,7 +168,7 @@ namespace The_Maze_Game
                 ConsoleKey keypressed;
                 do
                 {
-                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);;
                     DisplayOptions();
 
                     ConsoleKeyInfo keyInfo = Console.ReadKey(true);

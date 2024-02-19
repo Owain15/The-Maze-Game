@@ -11,6 +11,8 @@ namespace The_Maze_Game
     internal class LevelBilder
     {
         private string[,] CurrentLevel;
+        private string[,] level;
+        public string[,] Level{ get { return level; } set { level = value; } }
         private int Rows;
         private int Cols;
 
@@ -39,7 +41,7 @@ namespace The_Maze_Game
             }
         }
 
-        public string GetElementAt(int x, int y)
+        public string GetElementAt( int x, int y)
         {
          
             return CurrentLevel[y, x];
@@ -71,6 +73,15 @@ namespace The_Maze_Game
             return CurrentLevel[y, x] == " " || CurrentLevel[y, x] == "X";
 
         }
+        public bool LockCheck(LockAndKey Lock, int PreposedX, int PreposedY)
+        {
+            if (PreposedX == Lock.LockX)
+            {
+                if (PreposedY == Lock.LockY)
+                { return true; }
+            }
+            return false;
+        }
 
         public int GetRows()
         {
@@ -81,6 +92,12 @@ namespace The_Maze_Game
         {
             return Cols;
 
+        }
+
+        public void DrawElimentToLevel(string eliment,int X ,int Y)
+        {
+            Console.SetCursorPosition( X, Y );
+            Console.WriteLine(eliment);
         }
 
 
