@@ -1,4 +1,4 @@
-﻿using The_Maze_Game;
+﻿using The_Maze_Game.Menu;
 // vid ref 19.00
 
 Console.CursorVisible = false;

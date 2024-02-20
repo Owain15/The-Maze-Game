@@ -5,20 +5,20 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace The_Maze_Game
+namespace The_Maze_Game.GameMechanics
 {
-   
-    internal class LevelBilder
+
+    internal class LevelBuilderClass
     {
         private string[,] CurrentLevel;
         private string[,] level;
-        public string[,] Level{ get { return level; } set { level = value; } }
+        public string[,] Level { get { return level; } set { level = value; } }
         private int Rows;
         private int Cols;
 
-        
 
-        public LevelBilder(string[,] maze)
+
+        public LevelBuilderClass(string[,] maze)
         {
             CurrentLevel = maze;
             Rows = CurrentLevel.GetLength(0);
@@ -41,30 +41,30 @@ namespace The_Maze_Game
             }
         }
 
-        public string GetElementAt( int x, int y)
+        public string GetElementAt(int x, int y)
         {
-         
+
             return CurrentLevel[y, x];
         }
-       
+
         public bool IsPositionClear(int x, int y)
         {
-        if (x < 0)
+            if (x < 0)
             {
-                x = Cols-1 ;
+                x = Cols - 1;
 
             }
-        if (x+1 > Cols)
+            if (x + 1 > Cols)
             {
                 x = 0;
 
             }
-        if (y < 0)
+            if (y < 0)
             {
-                y = Rows-1;
+                y = Rows - 1;
 
             }
-        if (y+1 > Rows)
+            if (y + 1 > Rows)
             {
                 y = 0;
 
@@ -94,9 +94,9 @@ namespace The_Maze_Game
 
         }
 
-        public void DrawElimentToLevel(string eliment,int X ,int Y)
+        public void DrawElimentToLevel(string eliment, int X, int Y)
         {
-            Console.SetCursorPosition( X, Y );
+            Console.SetCursorPosition(X, Y);
             Console.WriteLine(eliment);
         }
 
@@ -113,7 +113,6 @@ namespace The_Maze_Game
 }
 
 
-  
 
-        
-           
+
+

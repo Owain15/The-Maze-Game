@@ -6,15 +6,17 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using The_Maze_Game.GameMechanics;
+using The_Maze_Game.Menu;
 
-namespace The_Maze_Game
+namespace The_Maze_Game.Levels
 {
     internal class GameLoop
     {
-        private LevelBilder CurrentLevel;
-        private Player CurrentPlayer;
-        private FinishPoint CurrentFinishPoint;
-        private LevelArray SelectedLever;
+        private LevelBuilderClass CurrentLevel;
+        private PlayerClass CurrentPlayer;
+        private FinishPointClass CurrentFinishPoint;
+        
 
 
 
@@ -22,7 +24,7 @@ namespace The_Maze_Game
         public void LevelOne()
         {
 
-            String[,] LvOne =
+            string[,] LvOne =
             {
                 { "#", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "#" },
                 { "|", " ", " ", " ", " ", " ", "#", "=", "#", " ", " ", " ", " ", "#", "=", "#", " ", " ", " ", "|" },
@@ -37,9 +39,9 @@ namespace The_Maze_Game
 
             };
 
-            CurrentLevel = new LevelBilder(LvOne);
-            CurrentPlayer = new Player(1, 8);
-            CurrentFinishPoint = new FinishPoint(1, 5);
+            CurrentLevel = new LevelBuilderClass(LvOne);
+            CurrentPlayer = new PlayerClass(1, 8);
+            CurrentFinishPoint = new FinishPointClass(1, 5);
 
             RunGameLoop();
 
@@ -53,7 +55,7 @@ namespace The_Maze_Game
         public void LevelTwo()
         {
 
-            String[,] LvTwo =
+            string[,] LvTwo =
           {
                 { " ", " ", " ", " ", "|", " ", "|", " ", " ", " ", " ", " ", " ", " ", "|", " ", "|", " ", " ", " " },
                 { "=", "#", "=", "=", "#", " ", "#", "=", "=", "#", "#", "=", "=", "=", "#", " ", "#", "=", "#", "=" },
@@ -68,9 +70,9 @@ namespace The_Maze_Game
 
             };
 
-            CurrentLevel = new LevelBilder(LvTwo);
-            CurrentPlayer = new Player(5, 6);
-            CurrentFinishPoint = new FinishPoint(12, 7);
+            CurrentLevel = new LevelBuilderClass(LvTwo);
+            CurrentPlayer = new PlayerClass(5, 6);
+            CurrentFinishPoint = new FinishPointClass(12, 7);
 
             RunGameLoop();
 
@@ -98,9 +100,9 @@ namespace The_Maze_Game
 
         };
 
-            CurrentLevel = new LevelBilder(LvThree);
-            CurrentPlayer = new Player(4, 4);
-            CurrentFinishPoint = new FinishPoint(14, 4);
+            CurrentLevel = new LevelBuilderClass(LvThree);
+            CurrentPlayer = new PlayerClass(4, 4);
+            CurrentFinishPoint = new FinishPointClass(14, 4);
             LockAndKey BlueLockAndKey = new LockAndKey(12, 4, 10, 2, ConsoleColor.Blue);
 
             GameLoopLvThree();
@@ -116,11 +118,11 @@ namespace The_Maze_Game
                 {
                     DrawFrame();
                     BlueLockAndKey.Draw();
-                    LvThreeHandlePlayerInput(BlueLockAndKey,GetInput());
+                    LvThreeHandlePlayerInput(BlueLockAndKey, GetInput());
                     Delay();
                     LockAndKeyCheck(BlueLockAndKey, CurrentPlayer);
 
-                    HasPlayerReachedFinish = HasPlayerReachedGoal();
+                    HasPlayerReachedFinish = HasPlayerReachedGoal(CurrentLevel,CurrentPlayer);
                 }
 
 
@@ -152,9 +154,9 @@ namespace The_Maze_Game
 
         };
 
-            CurrentLevel = new LevelBilder(LvFour);
-            CurrentPlayer = new Player(2, 7);
-            CurrentFinishPoint = new FinishPoint(6, 11);
+            CurrentLevel = new LevelBuilderClass(LvFour);
+            CurrentPlayer = new PlayerClass(2, 7);
+            CurrentFinishPoint = new FinishPointClass(6, 11);
 
             LockAndKey BlueLockAndKey = new LockAndKey(4, 9, 6, 7, ConsoleColor.Blue);
             LockAndKey YellowLockAndKey = new LockAndKey(8, 5, 6, 3, ConsoleColor.Yellow);
@@ -182,12 +184,12 @@ namespace The_Maze_Game
                     SlideBlockOne.Draw();
                     SlideBlockTwo.Draw();
 
-                    LvFourHandlePlayerInput(BlueLockAndKey, YellowLockAndKey, SlideBlockOne, SlideBlockTwo ,GetInput());
+                    LvFourHandlePlayerInput(BlueLockAndKey, YellowLockAndKey, SlideBlockOne, SlideBlockTwo, GetInput());
                     Delay();
                     LockAndKeyCheck(BlueLockAndKey, CurrentPlayer);
                     LockAndKeyCheck(YellowLockAndKey, CurrentPlayer);
 
-                    HasPlayerReachedFinish = HasPlayerReachedGoal();
+                    HasPlayerReachedFinish = HasPlayerReachedGoal(CurrentLevel, CurrentPlayer);
                 }
 
 
@@ -218,38 +220,38 @@ namespace The_Maze_Game
 
         };
 
-            CurrentLevel = new LevelBilder(LvFive);
-            CurrentPlayer = new Player(4, 2); 
-            CurrentFinishPoint = new FinishPoint(5,12);
+            CurrentLevel = new LevelBuilderClass(LvFive);
+            CurrentPlayer = new PlayerClass(4, 2);
+            CurrentFinishPoint = new FinishPointClass(5, 12);
 
-           
+
 
             SlideBlock SlideBlockOne = new SlideBlock(11, 6);
             SlideBlock SlideBlockTwo = new SlideBlock(1, 1);
 
-            LockAndKey LockAndKeyBlue = new LockAndKey(1,3,1,4,ConsoleColor.Blue);
-           
-            Button ButtonOne = new Button(6, 4);
-           
-            Button ButtonTwo = new Button(4, 7);
-            Button ButtonThree = new Button(4,7);
+            LockAndKey LockAndKeyBlue = new LockAndKey(1, 3, 1, 4, ConsoleColor.Blue);
 
-            Button ButtonFour = new Button(8,10);
-            Button ButtonFive = new Button(10,6);
+            Button ButtonOne = new Button(6, 4);
+
+            Button ButtonTwo = new Button(4, 7);
+            Button ButtonThree = new Button(4, 7);
+
+            Button ButtonFour = new Button(8, 10);
+            Button ButtonFive = new Button(10, 6);
 
             GameLoopLvFive();
 
             void GameLoopLvFive()
             {
                 bool HasPlayerReachedFinish = false;
-                
+
                 DrawFrame();
 
                 while (HasPlayerReachedFinish != true)
                 {
-                   
 
-                    
+
+
                     ButtonOne.Draw();
                     ButtonTwo.Draw();
                     ButtonThree.Draw();
@@ -264,8 +266,8 @@ namespace The_Maze_Game
                     CurrentPlayer.Draw();
 
                     //LvFiveHandlePlayerInput(SlideBlockOne, GetInput());
-                    
-                    HanddlePlayerInput(LvFive, CurrentPlayer, SlideBlockOne,GetInput());
+
+                    HanddlePlayerInput(LvFive, CurrentPlayer, SlideBlockOne, GetInput());
                     Delay();
 
                     CheckButton(ButtonOne);
@@ -273,8 +275,8 @@ namespace The_Maze_Game
                     CheckButton(ButtonThree);
                     CheckButton(ButtonFour);
                     CheckButton(ButtonFive);
-                    
-                    HasPlayerReachedFinish = HasPlayerReachedGoal();
+
+                    HasPlayerReachedFinish = HasPlayerReachedGoal(CurrentLevel, CurrentPlayer);
                 }
 
                 void LvFiveHandlePlayerInput(SlideBlock BlockOne, ConsoleKey Move)
@@ -284,7 +286,7 @@ namespace The_Maze_Game
                     bool CheckForButtonOneBlock = false;
                     bool CheckForButtonTwoBlock = false;
                     bool CheckMoveIsFree = false;
-                    
+
 
 
                     switch (Move)
@@ -298,14 +300,14 @@ namespace The_Maze_Game
                                 {
 
                                     CheckForSlideBlock = SlideBlockLogic(BlockOne, CurrentPlayer.x, CurrentPlayer.y - 1);
-                                    
+
                                     //CheckForButtonOneBlock = ButtonBlockLogic
                                     //    (CurrentPlayer,SlideBlockOne,ButtonOneLogic(ButtonOne), ConvertMoveMade(Move));
 
                                     //CheckForButtonTwoBlock = ButtonBlockLogic
                                     //    (CurrentPlayer, SlideBlockOne, ButtonTwoLogic(ButtonTwo), ConvertMoveMade(Move));
 
-                                    CheckMoveIsFree = LvFiveEvaluateMove(CheckForSlideBlock,CheckForButtonOneBlock,CheckForButtonTwoBlock);
+                                    CheckMoveIsFree = LvFiveEvaluateMove(CheckForSlideBlock, CheckForButtonOneBlock, CheckForButtonTwoBlock);
                                     if (CheckMoveIsFree == false) { CurrentPlayer.y -= 1; }
 
                                 }
@@ -314,7 +316,7 @@ namespace The_Maze_Game
                                 {
                                     CurrentPlayer.y = CurrentLevel.GetRows() - 1;
                                     MoveSlideBlock(BlockOne, CurrentPlayer.x, CurrentPlayer.y, ConvertMoveMade(Move));
-                                    
+
                                 }
 
                                 break;
@@ -388,10 +390,10 @@ namespace The_Maze_Game
 
                                 CheckForSlideBlock = SlideBlockLogic(BlockOne, CurrentPlayer.x + 1, CurrentPlayer.y);
 
-                               // CheckForButtonOneBlock = ButtonBlockLogic
+                                // CheckForButtonOneBlock = ButtonBlockLogic
                                 //       (CurrentPlayer, SlideBlockOne, ButtonOneLogic(ButtonOne), ConvertMoveMade(Move));
                                 //CheckForButtonTwoBlock = ButtonBlockLogic
-                                  //     (CurrentPlayer, SlideBlockOne, ButtonTwoLogic(ButtonTwo), ConvertMoveMade(Move));
+                                //     (CurrentPlayer, SlideBlockOne, ButtonTwoLogic(ButtonTwo), ConvertMoveMade(Move));
 
                                 CheckMoveIsFree = LvFiveEvaluateMove(CheckForSlideBlock, CheckForButtonOneBlock, CheckForButtonTwoBlock);
                                 if (CheckMoveIsFree == false) { CurrentPlayer.x += 1; }
@@ -420,7 +422,7 @@ namespace The_Maze_Game
                             break;
                     }
 
-                    CurrentPlayer.DrawMove(Move);
+                    //CurrentPlayer.DrawMove(Move);
 
                 }
 
@@ -430,25 +432,25 @@ namespace The_Maze_Game
                 {
                     bool MoveEvaluation = false;
                     // if (CheckForLock == true) { MoveEvaluation = true; }
-                    if (CheckForButtonOneBlock == true) {MoveEvaluation = true;}
-                    if(CheckForButtonTwoBlock == true) {  MoveEvaluation = true;}
+                    if (CheckForButtonOneBlock == true) { MoveEvaluation = true; }
+                    if (CheckForButtonTwoBlock == true) { MoveEvaluation = true; }
                     if (CheckForSlideBlock == true) { MoveEvaluation = true; }
                     return MoveEvaluation;
                 }
                 void CheckButton(Button Button)
                 {
-                    
-                    if (Button.ButtonPushedCheck(CurrentPlayer.x, CurrentPlayer.y) == true) { Button.ButtonPressed = true; } 
+
+                    if (Button.ButtonPushedCheck(CurrentPlayer.x, CurrentPlayer.y) == true) { Button.ButtonPressed = true; }
                     else if (Button.ButtonPushedCheck(SlideBlockOne.SlideBlockX, SlideBlockOne.SlideBlockY) == true) { Button.ButtonPressed = true; }
-                    else { Button.ButtonPressed = false; } 
-                    
+                    else { Button.ButtonPressed = false; }
+
                 }
                 int[] ButtonOneLogic(Button Button)
                 {
                     int[] PositionOne = new int[2] { 6, 5 };
                     int[] PositionTwo = new int[2] { 10, 7 };
 
-                    if(Button.ButtonPressed == true) 
+                    if (Button.ButtonPressed == true)
                     {
                         Console.SetCursorPosition(PositionOne[0], PositionOne[1]);
                         Console.WriteLine(" ");
@@ -464,22 +466,22 @@ namespace The_Maze_Game
                 int[] ButtonTwoLogic(Button Button)
                 {
                     int[] PositionOne = new int[] { 5, 1 };
-                    int[] PositionTwo = new int[] {10, 7 };
+                    int[] PositionTwo = new int[] { 10, 7 };
 
                     if (Button.ButtonPressed == true)
                     {
                         Console.SetCursorPosition(4, 0);
                         Console.WriteLine("|" + " " + "|");
-                        Console.SetCursorPosition(4,1);
-                        Console.WriteLine("#"+" "+"#");
+                        Console.SetCursorPosition(4, 1);
+                        Console.WriteLine("#" + " " + "#");
                         return PositionTwo;
                     }
                     else
                     {
                         Console.SetCursorPosition(4, 0);
                         Console.WriteLine(" " + " " + " ");
-                        Console.SetCursorPosition(4,1);
-                        Console.WriteLine("="+"="+"=");
+                        Console.SetCursorPosition(4, 1);
+                        Console.WriteLine("=" + "=" + "=");
                         return PositionOne;
                     }
 
@@ -502,11 +504,11 @@ namespace The_Maze_Game
                     }
                     else
                     {
-                        Console.SetCursorPosition(4,13);
-                        Console.WriteLine("="+"="+"=");
-                        Console.SetCursorPosition(4,14);
+                        Console.SetCursorPosition(4, 13);
+                        Console.WriteLine("=" + "=" + "=");
+                        Console.SetCursorPosition(4, 14);
                         Console.WriteLine(" " + " " + " ");
-                       
+
                         return PositionOne;
                     }
 
@@ -514,16 +516,16 @@ namespace The_Maze_Game
 
 
                 }
-                int[] ButtonFourLogic(Button Button) 
+                int[] ButtonFourLogic(Button Button)
                 {
                     int[] PositionOne = new int[] { 9, 10 };
-                    int[] PositionTwo = new int[] {10, 7 };
+                    int[] PositionTwo = new int[] { 10, 7 };
 
                     if (Button.ButtonPressed == true)
                     {
                         Console.SetCursorPosition(9, 10);
                         Console.WriteLine(" ");
-                    
+
 
                         return PositionTwo;
                     }
@@ -531,12 +533,12 @@ namespace The_Maze_Game
                     {
                         Console.SetCursorPosition(9, 10);
                         Console.WriteLine("|");
-                     
+
 
                         return PositionOne;
                     }
                 }
-                int[] ButtonFiveLogic(Button Button) 
+                int[] ButtonFiveLogic(Button Button)
                 {
                     int[] PositionOne = new int[] { 9, 6 };
                     int[] PositionTwo = new int[] { 10, 7 };
@@ -560,19 +562,20 @@ namespace The_Maze_Game
                 }
 
 
-                bool ButtonBlockLogic(Player Player, SlideBlock Block, int[] ButtonBlock, int[] MoveMade)
+                bool ButtonBlockLogic(PlayerClass Player, SlideBlock Block, int[] ButtonBlock, int[] MoveMade)
                 {
                     bool Result = false;
                     if (Player.x + MoveMade[0] == ButtonBlock[0])
-                    { if(Player.y+ MoveMade[1] == ButtonBlock[1]) { Result = true; } }
-                    else if(Block.BlockBeenPushed == true)
-                    {   if (Block.SlideBlockX + MoveMade[0] == ButtonBlock[0])
+                    { if (Player.y + MoveMade[1] == ButtonBlock[1]) { Result = true; } }
+                    else if (Block.BlockBeenPushed == true)
+                    {
+                        if (Block.SlideBlockX + MoveMade[0] == ButtonBlock[0])
                         { if (Block.SlideBlockY + MoveMade[1] == ButtonBlock[1]) { Result = true; } }
                     }
                     else { Result = false; }
                     return Result;
                 }
-               
+
             }
 
         }
@@ -590,7 +593,7 @@ namespace The_Maze_Game
 
                 Delay();
 
-                HasPlayerReachedFinish = HasPlayerReachedGoal();
+                HasPlayerReachedFinish = HasPlayerReachedGoal(CurrentLevel, CurrentPlayer);
 
             }
 
@@ -603,7 +606,7 @@ namespace The_Maze_Game
         private void DrawFrame()
         {
 
-            Console.Clear(); 
+            Console.Clear();
 
             CurrentLevel.Draw();
             CurrentPlayer.Draw();
@@ -706,7 +709,7 @@ namespace The_Maze_Game
                         if (CurrentLevel.LockCheck(Lock, CurrentPlayer.x, CurrentPlayer.y - 1) == false)
                         { CurrentPlayer.y -= 1; }
                         else if (Lock.IsKeyPickedUp == true)
-                        { CurrentPlayer.y -=1; }
+                        { CurrentPlayer.y -= 1; }
 
                     }
                     if (CurrentPlayer.y < 0)
@@ -756,7 +759,7 @@ namespace The_Maze_Game
 
                         if (CurrentLevel.LockCheck(Lock, CurrentPlayer.x + 1, CurrentPlayer.y) == false)
                         { CurrentPlayer.x += 1; }
-                        else if(Lock.IsKeyPickedUp == true)
+                        else if (Lock.IsKeyPickedUp == true)
                         { CurrentPlayer.x += 1; }
                     }
                     if (CurrentPlayer.x + 1 > CurrentLevel.GetCols())
@@ -779,7 +782,7 @@ namespace The_Maze_Game
                     break;
             }
         }
-     
+
         private void LvFourHandlePlayerInput
             (LockAndKey LockOne, LockAndKey LockTwo,
             SlideBlock BlockOne, SlideBlock BlockTwo
@@ -839,13 +842,13 @@ namespace The_Maze_Game
 
                     }
                     break;
-            
+
                 case ConsoleKey.LeftArrow:
 
-                    MoveSlideBlock(BlockOne, CurrentPlayer.x - 1, CurrentPlayer.y , ConvertMoveMade(Move));
-                    MoveSlideBlock(BlockTwo, CurrentPlayer.x - 1, CurrentPlayer.y , ConvertMoveMade(Move));
+                    MoveSlideBlock(BlockOne, CurrentPlayer.x - 1, CurrentPlayer.y, ConvertMoveMade(Move));
+                    MoveSlideBlock(BlockTwo, CurrentPlayer.x - 1, CurrentPlayer.y, ConvertMoveMade(Move));
 
-                    if (CurrentLevel.IsPositionClear(CurrentPlayer.x - 1, CurrentPlayer.y ))
+                    if (CurrentLevel.IsPositionClear(CurrentPlayer.x - 1, CurrentPlayer.y))
                     {
                         CheckForLock = TwoLockCheck(LockOne, LockTwo, CurrentPlayer.x - 1, CurrentPlayer.y);
                         CheckForSlideBlock = TwoSlideBlockCheck(BlockOne, BlockTwo, CurrentPlayer.x - 1, CurrentPlayer.y);
@@ -858,8 +861,8 @@ namespace The_Maze_Game
                     if (CurrentPlayer.x < 0)
                     {
                         CurrentPlayer.x = CurrentLevel.GetCols() - 1;
-                       
-                        
+
+
                     }
                     break;
 
@@ -879,11 +882,11 @@ namespace The_Maze_Game
                     }
 
                     if (CurrentPlayer.x + 1 > CurrentLevel.GetCols())
-                {
-                    CurrentPlayer.x = 0;
-                }
+                    {
+                        CurrentPlayer.x = 0;
+                    }
                     break;
-                    
+
 
                 case ConsoleKey.Escape:
 
@@ -899,8 +902,8 @@ namespace The_Maze_Game
                     break;
             }
         }
-       
-        private ConsoleKey GetInput()
+
+        public ConsoleKey GetInput()
         {
             ConsoleKey Move;
             do
@@ -913,12 +916,12 @@ namespace The_Maze_Game
         }
         private int GetMoveInt(ConsoleKey Move)
         {
-            switch(Move)
+            switch (Move)
             {
                 case ConsoleKey.UpArrow:
-                    { return CurrentPlayer.y -1 ; }
+                    { return CurrentPlayer.y - 1; }
                 case ConsoleKey.DownArrow:
-                    { return CurrentPlayer.y + 1 ; }
+                    { return CurrentPlayer.y + 1; }
                 case ConsoleKey.LeftArrow:
                     { return CurrentPlayer.x - 1; }
                 case ConsoleKey.RightArrow:
@@ -927,14 +930,14 @@ namespace The_Maze_Game
 
             return CurrentPlayer.x;
         }
-        private void LockAndKeyCheck(LockAndKey CurrentLockAndKey,Player CurrentPlayer)
+        public void LockAndKeyCheck(LockAndKey CurrentLockAndKey, PlayerClass CurrentPlayer)
         {
-            CurrentLockAndKey.DoesPLayerHaveKey(CurrentLockAndKey,CurrentPlayer.x,CurrentPlayer.y);
-            CurrentLockAndKey.UseKeyOnDoor(CurrentLockAndKey, CurrentPlayer.x, CurrentPlayer.y);
+            CurrentLockAndKey.DoesPlayerHaveKey( CurrentPlayer.x, CurrentPlayer.y);
+            CurrentLockAndKey.IsDoorLocked(CurrentPlayer.x, CurrentPlayer.y);
         }
-        private bool HasPlayerReachedGoal()
+        public bool HasPlayerReachedGoal(LevelBuilderClass Level, PlayerClass Player)
         {
-            string elimentAtPlayePos = CurrentLevel.GetElementAt(CurrentPlayer.x, CurrentPlayer.y);
+            string elimentAtPlayePos = Level.GetElementAt(Player.x, Player.y);
             if (elimentAtPlayePos == "X")
             {
                 return true;
@@ -943,11 +946,11 @@ namespace The_Maze_Game
         }
         private bool LockAndKeyLogic(LockAndKey Lock, int PreposedX, int PreposedY)
         {
-            if (Lock.LockX==PreposedX)
+            if (Lock.LockX == PreposedX)
             {
                 if (Lock.LockY == PreposedY)
                 {
-                    if (Lock.IsKeyPickedUp==true)
+                    if (Lock.IsKeyPickedUp == true)
                     { return false; }
                     return true;
                 }
@@ -956,36 +959,36 @@ namespace The_Maze_Game
         }
         private bool LockAndKeyLogicTwoLocks(LockAndKey LockOne, LockAndKey LockTwo, int PreposedX, int PreposedY)
         {
-            
-            if (LockAndKeyLogic(LockOne,PreposedX,PreposedY) == true) { return true; }
+
+            if (LockAndKeyLogic(LockOne, PreposedX, PreposedY) == true) { return true; }
             if (LockAndKeyLogic(LockTwo, PreposedX, PreposedY) == true) { return true; }
-            
+
             return false;
         }
-        private bool SlideBlockLogic(SlideBlock Block, int PreposedX,int PreposedY)
+        private bool SlideBlockLogic(SlideBlock Block, int PreposedX, int PreposedY)
         {
-            if ( Block.SlideBlockX == PreposedX)
+            if (Block.SlideBlockX == PreposedX)
             {
-                if (Block.SlideBlockY ==PreposedY)
+                if (Block.SlideBlockY == PreposedY)
                 { return true; }
             }
             return false;
         }
-        private bool SlideBlockLogicTwoLocks(SlideBlock BlockOne, SlideBlock BlockTwo, int PreposedX, int PreposedY) 
+        private bool SlideBlockLogicTwoLocks(SlideBlock BlockOne, SlideBlock BlockTwo, int PreposedX, int PreposedY)
         {
-            if (SlideBlockLogic(BlockOne,PreposedX,PreposedY) == true) { return true; }
-            if (SlideBlockLogic(BlockTwo,PreposedX,PreposedY) == true) { return true; }
+            if (SlideBlockLogic(BlockOne, PreposedX, PreposedY) == true) { return true; }
+            if (SlideBlockLogic(BlockTwo, PreposedX, PreposedY) == true) { return true; }
             return false;
         }
-        private bool EvaluateMove( bool CheckForLock, bool CheckForSlideBlock)
+        private bool EvaluateMove(bool CheckForLock, bool CheckForSlideBlock)
         {
             bool MoveEvaluation = false;
             if (CheckForLock == true) { MoveEvaluation = true; }
-            if (CheckForSlideBlock == true) { MoveEvaluation = true;}
+            if (CheckForSlideBlock == true) { MoveEvaluation = true; }
             return MoveEvaluation;
         }
         private bool TwoSlideBlockCheck(SlideBlock BlockOne, SlideBlock BlockTwo, int PreposedPlayerX, int PreposedPlayerY)
-        { 
+        {
             if (SlideBlockLogicTwoLocks(BlockOne, BlockTwo, PreposedPlayerX, PreposedPlayerY) == false)
             { return false; }
             else { return true; }
@@ -997,18 +1000,18 @@ namespace The_Maze_Game
             { return false; }
             else { return true; }
         }
-        private void MoveSlideBlock(SlideBlock Block,int PreposedPlayerX, int PreposedPlayerY, int[] MoveMade )
+        private void MoveSlideBlock(SlideBlock Block, int PreposedPlayerX, int PreposedPlayerY, int[] MoveMade)
         {
-            if (Block.HasBlockBeenPushed( PreposedPlayerX, PreposedPlayerY) == true)
+            if (Block.HasBlockBeenPushed(PreposedPlayerX, PreposedPlayerY) == true)
             {
                 int PreposedBlockX = Block.SlideBlockX + MoveMade[0];
                 int PreposedBlockY = Block.SlideBlockY + MoveMade[1];
-               
-                if (PreposedBlockX < 0){PreposedBlockX = CurrentLevel.GetCols() -1 ;}
-                if (PreposedBlockX > CurrentLevel.GetCols()-1 ) { PreposedBlockX = 0; }
 
-                if ( PreposedBlockY < 0){ PreposedBlockY = CurrentLevel.GetRows() - 1; }
-                if (PreposedBlockY > CurrentLevel.GetRows()-1 ) {  PreposedBlockY = 0; }
+                if (PreposedBlockX < 0) { PreposedBlockX = CurrentLevel.GetCols() - 1; }
+                if (PreposedBlockX > CurrentLevel.GetCols() - 1) { PreposedBlockX = 0; }
+
+                if (PreposedBlockY < 0) { PreposedBlockY = CurrentLevel.GetRows() - 1; }
+                if (PreposedBlockY > CurrentLevel.GetRows() - 1) { PreposedBlockY = 0; }
 
                 if (CurrentLevel.IsPositionClear(PreposedBlockX, PreposedBlockY))
                 { Block.SlideBlockX = PreposedBlockX; Block.SlideBlockY = PreposedBlockY; }
@@ -1017,23 +1020,27 @@ namespace The_Maze_Game
         }
         public int[] ConvertMoveMade(ConsoleKey MoveMade)
         {
-            int[] Reff = new int[2] {0,0};
+            int[] Reff = new int[2] { 0, 0 };
 
             switch (MoveMade)
             {
-                case ConsoleKey.UpArrow:    { Reff[1] = - 1; }
+                case ConsoleKey.UpArrow:
+                    { Reff[1] = -1; }
                     break;
-                case ConsoleKey.DownArrow:  { Reff[1] = + 1; }
+                case ConsoleKey.DownArrow:
+                    { Reff[1] = +1; }
                     break;
-                case ConsoleKey.LeftArrow:  { Reff[0] = - 1; }
+                case ConsoleKey.LeftArrow:
+                    { Reff[0] = -1; }
                     break;
-                case ConsoleKey.RightArrow: { Reff[0] = + 1; }
+                case ConsoleKey.RightArrow:
+                    { Reff[0] = +1; }
                     break;
             }
 
             return Reff;
         }
-        private int[] GetNextPlayerLocation(Player CurrentPlayer, ConsoleKey Input)
+        private int[] GetNextPlayerLocation(PlayerClass CurrentPlayer, ConsoleKey Input)
         {
             int[] Move = new int[2];
             Move = ConvertMoveMade(Input);
@@ -1041,7 +1048,7 @@ namespace The_Maze_Game
             return PreposedPlayerReff;
         }
         private void HanddlePlayerInput
-            (string[,] Level,Player CurrentPlayer,SlideBlock BlockOne,ConsoleKey Input)
+            (string[,] Level, PlayerClass CurrentPlayer, SlideBlock BlockOne, ConsoleKey Input)
         {
             //bool CheckForLock = true;
             bool CheckForSlideBlock = false;
@@ -1055,34 +1062,34 @@ namespace The_Maze_Game
             int[] Move = new int[2];
             Move = ConvertMoveMade(Input);
             int[] PreposedPlayerMove = new int[2] { CurrentPlayer.x + Move[0], CurrentPlayer.y + Move[1] };
-           
 
-          
-                        MoveSlideBlock(BlockOne, PreposedPlayerMove[0],PreposedPlayerMove[1], ConvertMoveMade(Input));
 
-                        if (CurrentLevel.IsPositionClear(PreposedPlayerMove[0], PreposedPlayerMove[1]))
-                        {
 
-                            CheckForSlideBlock = SlideBlockLogic(BlockOne, PreposedPlayerMove[0], PreposedPlayerMove[1]);
-                            CheckForButtonOneBlock = ButtonBlockLogic(CurrentPlayer,BlockOne,But);
-                            CheckMoveIsFree = EvaluateMoveTest(CheckForSlideBlock,CheckForButtonOneBlock,CheckForButtonTwoBlock);
-                            if (CheckMoveIsFree == true) 
-                            {
-                                CurrentPlayer.DrawMove(Input);
-                                
-                            }
+            MoveSlideBlock(BlockOne, PreposedPlayerMove[0], PreposedPlayerMove[1], ConvertMoveMade(Input));
 
-                        }
+            if (CurrentLevel.IsPositionClear(PreposedPlayerMove[0], PreposedPlayerMove[1]))
+            {
 
-            LoopLogic(PreposedPlayerMove,Level,BlockOne,Input);
+                CheckForSlideBlock = SlideBlockLogic(BlockOne, PreposedPlayerMove[0], PreposedPlayerMove[1]);
+                // CheckForButtonOneBlock = ButtonBlockLogic(CurrentPlayer,BlockOne,Bu);
+                CheckMoveIsFree = EvaluateMoveTest(CheckForSlideBlock, CheckForButtonOneBlock, CheckForButtonTwoBlock);
+                if (CheckMoveIsFree == true)
+                {
+                  //  CurrentPlayer.DrawMove(Input);
+
+                }
+
+            }
+
+            LoopLogic(PreposedPlayerMove, Level, BlockOne, Input);
 
 
         }
-        private void LoopLogic(int[] PreposedPlayerMove, string[,] Level,SlideBlock BlockOne,ConsoleKey Input)
+        private void LoopLogic(int[] PreposedPlayerMove, string[,] Level, SlideBlock BlockOne, ConsoleKey Input)
         {
             if (PreposedPlayerMove[0] < 0)
             {
-                PreposedPlayerMove[0] = Level.GetLength(0)- 1;
+                PreposedPlayerMove[0] = Level.GetLength(0) - 1;
                 MoveSlideBlock(BlockOne, PreposedPlayerMove[0], PreposedPlayerMove[1], ConvertMoveMade(Input));
             }
             if (PreposedPlayerMove[0] > Level.GetLength(0) - 1)
@@ -1103,18 +1110,18 @@ namespace The_Maze_Game
 
         }
         private bool EvaluateMoveTest
-        
+
            (bool CheckForSlideBlock, bool CheckForButtonOneBlock, bool CheckForButtonTwoBlock)
-            {
-                bool MoveEvaluation = false;
-                // if (CheckForLock == true) { MoveEvaluation = true; }
-                if (CheckForButtonOneBlock == true) { MoveEvaluation = true; }
-                if (CheckForButtonTwoBlock == true) { MoveEvaluation = true; }
-                if (CheckForSlideBlock == true) { MoveEvaluation = true; }
-                return MoveEvaluation;
-            
+        {
+            bool MoveEvaluation = false;
+            // if (CheckForLock == true) { MoveEvaluation = true; }
+            if (CheckForButtonOneBlock == true) { MoveEvaluation = true; }
+            if (CheckForButtonTwoBlock == true) { MoveEvaluation = true; }
+            if (CheckForSlideBlock == true) { MoveEvaluation = true; }
+            return MoveEvaluation;
+
         }
-        private bool ButtonBlockLogic(Player Player, SlideBlock Block, int[] ButtonBlock, int[] MoveMade)
+        private bool ButtonBlockLogic(PlayerClass Player, SlideBlock Block, int[] ButtonBlock, int[] MoveMade)
         {
             bool Result = false;
             if (Player.x + MoveMade[0] == ButtonBlock[0])
@@ -1128,11 +1135,30 @@ namespace The_Maze_Game
             return Result;
         }
 
+        public int[] MoveLoopCheck(int ObjectX, int ObjectY, LevelBuilderClass CurrentLevel, int[] MoveReff)
+        {
+           
+            int X = ObjectX + MoveReff[0];
+            int Y = ObjectY + MoveReff[1];
+
+            if(X < 0) { X = CurrentLevel.GetCols() - 1; }
+            if (X > CurrentLevel.GetCols() - 1) { X = 0; }
+
+            if(Y < 0) { Y = CurrentLevel.GetRows() - 1; }
+            if (Y > CurrentLevel.GetRows()-1) { Y = 0; }
+
+            int[] Result = new int[2] {X,Y};
+
+            return Result;
+
+        }
+      
+
 
 
 
     }
-     
+
 
 }
 
