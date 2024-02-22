@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace The_Maze_Game.Levels
             LockAndKeyBlue = new LockAndKey(4, 9, 6, 7, ConsoleColor.Blue);
             LockAndKeyYellow = new LockAndKey(8, 5, 6, 3, ConsoleColor.Yellow);
 
-            SlideBlockOne = new SlideBlock(6, 9);
-            SlideBlockTwo = new SlideBlock(6, 5);
+            SlideBlockOne = new SlideBlock(2, 5);// 6,9
+            SlideBlockTwo = new SlideBlock(6, 5); 
 
             Console.Clear();
 
@@ -72,8 +73,9 @@ namespace The_Maze_Game.Levels
 
             bool LockOneCheck = false; 
             bool LockTwoCheck = false;
-            bool SlideBlockOneCheck = false;
-            bool SlideBlockTwoCheck = false;
+            bool SlideBlockOneCheck = true;
+            bool SlideBlockTwoCheck = true;
+            bool MoveEvaluation = false;
 
             int[] MoveReff = new int[2];
 
@@ -84,18 +86,26 @@ namespace The_Maze_Game.Levels
 
             if (CurrentLevel.IsPositionClear(PreposedPlayerMove[0], PreposedPlayerMove[1]))
             {
-                SlideBlockOneCheck = SlideBlockOne.HasBlockBeenPushed(PreposedPlayerMove[0], PreposedPlayerMove[1]);
-                if(SlideBlockOneCheck==true)
-                {   
-                    // if Block is free to move.
-                    SlideBlockOne.MoveSlideBlock(PreposedPlayerMove[0], PreposedPlayerMove[1],CurrentLevel, MoveReff);
-                    SlideBlockOne.Draw();
-                }
-                SlideBlockTwoCheck = SlideBlockTwo.HasBlockBeenPushed(PreposedPlayerMove[0], PreposedPlayerMove[1]);
-                if (SlideBlockTwoCheck == true)
+                if (SlideBlockOne.HasBlockBeenPushed(PreposedPlayerMove[0], PreposedPlayerMove[1]) == true)
                 {
-                    SlideBlockTwo.MoveSlideBlock(PreposedPlayerMove[0], PreposedPlayerMove[1], CurrentLevel, MoveReff);
-                    SlideBlockTwo.Draw();
+                    SlideBlockOneCheck = SlideBlockOne.IsBlockFreeToMove(CurrentLevel, MoveReff);
+
+                    if (SlideBlockOneCheck == true)
+                    {
+                        SlideBlockOne.Draw();
+                    }
+                }
+
+                
+                if (SlideBlockTwo.HasBlockBeenPushed(PreposedPlayerMove[0], PreposedPlayerMove[1]) )
+                {
+                    SlideBlockTwoCheck = SlideBlockTwo.IsBlockFreeToMove(CurrentLevel, MoveReff);
+
+                    if (SlideBlockTwoCheck == true)
+                    {
+                        SlideBlockTwo.Draw();
+                    }
+
                 }
 
                 LockOneCheck = LockAndKeyBlue.LockCheck(PreposedPlayerMove[0], PreposedPlayerMove[1]);
@@ -115,13 +125,19 @@ namespace The_Maze_Game.Levels
                     PreposedPlayerMove[0] = CurrentPlayer.x;
                     PreposedPlayerMove[1] = CurrentPlayer.y;
                 }
+
+                MoveEvaluation = EvaluateMove(LockOneCheck, LockTwoCheck, SlideBlockOneCheck, SlideBlockTwoCheck);
+               
+                if( MoveEvaluation == true) 
+                {  CurrentPlayer.DrawMove(PreposedPlayerMove); }
+
               
-                CurrentPlayer.DrawMove(PreposedPlayerMove);
+               
             }
 
 
         }
-          private void DrawOpeningFrame() 
+        private void DrawOpeningFrame() 
         {
         CurrentLevel.Draw();
         CurrentPlayer.Draw();
@@ -130,6 +146,17 @@ namespace The_Maze_Game.Levels
         LockAndKeyYellow.Draw();
         SlideBlockOne.Draw();
         SlideBlockTwo.Draw();
+        }
+        private bool EvaluateMove(bool LockOne,bool LockTwo,bool BlockOne,bool BlockTwo)
+        {
+            bool Result = true;
+
+            if (LockOne != false)  { Result = false; }
+            if (LockTwo != false)  { Result = false; }
+            if (BlockOne == false) { Result = false; }
+            if (BlockTwo == false) { Result = false; }
+
+            return Result;
         }
     }
 }

@@ -40,16 +40,20 @@ namespace The_Maze_Game.GameMechanics
             }
             return false;
         }
-        public bool IsBlockFreeToMove()
+        public bool IsBlockFreeToMove(LevelBuilderClass CurrentLevel, int[] MoveReff)
         {
+            int PreposedX = SlideBlockX + MoveReff[0];
+            int PreposedY = SlideBlockY + MoveReff[1];
 
-            return false;
+            bool Result = CurrentLevel.IsPositionClear(PreposedX,PreposedY);
+
+            if(Result == true ) { MoveSlideBlock(CurrentLevel,MoveReff); }
+
+            return Result;
         }
-        public void MoveSlideBlock(int PreposedPlayerX, int PreposedPlayerY,LevelBuilderClass CurrentLevel, int[] MoveMade)
+        public void MoveSlideBlock(LevelBuilderClass CurrentLevel, int[] MoveMade)
         {
-            bool BlockBeePushed= HasBlockBeenPushed(PreposedPlayerX, PreposedPlayerY);
-            if (BlockBeePushed == true)
-            {
+           
                 int PreposedBlockX = SlideBlockX + MoveMade[0];
                 int PreposedBlockY = SlideBlockY + MoveMade[1];
 
@@ -59,10 +63,9 @@ namespace The_Maze_Game.GameMechanics
                 if (PreposedBlockY < 0) { PreposedBlockY = CurrentLevel.GetRows() - 1; }
                 if (PreposedBlockY > CurrentLevel.GetRows() - 1) { PreposedBlockY = 0; }
 
-                if (CurrentLevel.IsPositionClear(PreposedBlockX, PreposedBlockY))
+                if (CurrentLevel.IsPositionClear(PreposedBlockX, PreposedBlockY) == true)
                 { SlideBlockX = PreposedBlockX; SlideBlockY = PreposedBlockY; }
-
-            }
+                
         }
     }
 }

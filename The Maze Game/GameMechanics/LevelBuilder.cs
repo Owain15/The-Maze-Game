@@ -49,26 +49,13 @@ namespace The_Maze_Game.GameMechanics
 
         public bool IsPositionClear(int x, int y)
         {
-            if (x < 0)
-            {
-                x = Cols - 1;
+            if (x < 0) { x = Cols - 1; }
 
-            }
-            if (x + 1 > Cols)
-            {
-                x = 0;
+            if (x + 1 > Cols) { x = 0; }
 
-            }
-            if (y < 0)
-            {
-                y = Rows - 1;
+            if (y < 0) { y = Rows - 1; }
 
-            }
-            if (y + 1 > Rows)
-            {
-                y = 0;
-
-            }
+            if (y + 1 > Rows) { y = 0; }
 
             return CurrentLevel[y, x] == " " || CurrentLevel[y, x] == "X";
 
