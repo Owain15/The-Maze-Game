@@ -37,15 +37,16 @@ namespace The_Maze_Game.GameMechanics
         }
         public bool ButtonPushedCheck(int ObjectX, int ObjectY)
         {
-
+             bool Result = false;
             if (ButtonPositon[0] == ObjectX)
             {
                 if (ButtonPositon[1] == ObjectY)
-                { ButtonPressed = true; }
+                { Result = true; }
             }
-            else { ButtonPressed = false; }
+            return Result;
 
-            return ButtonPressed;
+
         }
+        
     }
 }

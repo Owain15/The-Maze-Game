@@ -10,6 +10,8 @@ namespace The_Maze_Game.Levels
 {
     internal class Level4
     {
+        int LevelReff = 4;
+
         GameLoop GameMec = new GameLoop();
         LevelArrays Maze = new LevelArrays();
 
@@ -32,14 +34,14 @@ namespace The_Maze_Game.Levels
             LockAndKeyBlue = new LockAndKey(4, 9, 6, 7, ConsoleColor.Blue);
             LockAndKeyYellow = new LockAndKey(8, 5, 6, 3, ConsoleColor.Yellow);
 
-            SlideBlockOne = new SlideBlock(2, 5);// 6,9
+            SlideBlockOne = new SlideBlock(6, 9);
             SlideBlockTwo = new SlideBlock(6, 5); 
 
             Console.Clear();
 
             GameLoop();
 
-            Level1 NextLevel = new Level1();
+            Level5 NextLevel = new Level5();
             NextLevel.Run();
         }
      
@@ -76,6 +78,8 @@ namespace The_Maze_Game.Levels
             bool SlideBlockOneCheck = true;
             bool SlideBlockTwoCheck = true;
             bool MoveEvaluation = false;
+
+            GameMec.ExtraInputCheck(LevelReff, Input);
 
             int[] MoveReff = new int[2];
 

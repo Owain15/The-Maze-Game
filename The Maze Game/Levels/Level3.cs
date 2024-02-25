@@ -10,6 +10,8 @@ namespace The_Maze_Game.Levels
 {
     internal class Level3
     {
+        int LevelReff = 3;
+
         GameLoop GameMec = new GameLoop();
         LevelArrays Maze = new LevelArrays();
 
@@ -63,6 +65,7 @@ namespace The_Maze_Game.Levels
         }
         private void HandlePlayerInput(PlayerClass CurrentPlayer, LevelBuilderClass CurrentLevel, LockAndKey lockAndKey, ConsoleKey Input)
         {
+            GameMec.ExtraInputCheck( LevelReff, Input);
 
             bool IsMoveBlocked = false;
 

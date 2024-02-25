@@ -9,6 +9,8 @@ namespace The_Maze_Game.Levels
 {
     internal class Level2
     {
+        int LevelReff = 2;
+
             GameLoop GameMec = new GameLoop();
             LevelArrays Maze = new LevelArrays();
            
@@ -63,6 +65,7 @@ namespace The_Maze_Game.Levels
 
         private void HandlePlayerInput(PlayerClass CurrentPlayer, LevelBuilderClass CurrentLevel, ConsoleKey Input)
             {
+                GameMec.ExtraInputCheck(LevelReff, Input);
 
                 bool CheckMoveIsFree = false;
 
