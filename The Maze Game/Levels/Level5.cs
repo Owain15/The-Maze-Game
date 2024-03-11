@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using The_Maze_Game.GameMechanics;
+using The_Maze_Game.Menu;
 
 namespace The_Maze_Game.Levels
 {
@@ -60,8 +61,8 @@ namespace The_Maze_Game.Levels
 
             GameLoop();
 
-            Level1 NextLevel = new Level1();
-            NextLevel.Run();
+            HomePage NextLevel = new HomePage();
+            NextLevel.RunMainMenu();
         }
 
         private void GameLoop()
